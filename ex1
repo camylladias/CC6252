@@ -1,0 +1,17 @@
+<variavel, calculo>
+<operador_atribuicao, :=>
+<ap, (>
+<inteiro, 48226>
+<long, 89315l>
+<mult, *>
+<decimal, 345.2>
+<add, +>
+<ponto_flutuante, 997.12f>
+<fim_linha, ;>
+
+<variavel, valor>
+<operador_atribuicao, :=>
+<variavel, calculo>
+<sub, ->
+<variavel, resultado>
+<fim_linha, ;>
