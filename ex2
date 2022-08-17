@@ -1,0 +1,16 @@
+tipo: float|return
+metodo: [a-z][a-zA-Z]*
+variavel: [a-z][a-zA-Z]*
+pi: (
+pf: )
+menor: <
+maior: >
+igual: =
+mult: *
+interrogacao: ?
+fim_linha: ;
+ou: |
+inicio_comentario: /*
+fim_comentario: */
+inteiro: [0-9]+
+decimal: [0-9]+'.'[0-9]+
