@@ -1,6 +1,7 @@
 grammar atribuicao;
 
-init: tipo id op (id|num) fim;
+init: comando+;
+comando: tipo id op (id|num) fim;
 
 
 tipo: 'inteiro' {System.out.print("int ");} | 'decimal' {System.out.print("float ");} | 'palavra' {System.out.print("String ");};
