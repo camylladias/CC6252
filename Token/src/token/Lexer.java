@@ -30,6 +30,24 @@ public class Lexer {
         }
     }
     
+    public String getInteger(){
+        String resultado="";
+        while(atual != '?' && Character.isDigit(atual)){
+            resultado += atual;
+            avancar();
+        }
+        return resultado;
+    }
+    
+    public String getString(){
+        String resultado="";
+        while(atual != '?' && Character.isAlphabetic(atual)){
+            resultado += atual;
+            avancar();
+        }
+        return resultado;
+    }
+    
     public Token getNextToken(){
         while(atual != '?'){
             if(atual == ' '){
@@ -39,6 +57,36 @@ public class Lexer {
             if(atual == '+'){
                 avancar();
                 return new Token("SOMA", "+");
+            }
+            if(atual == '-'){
+                avancar();
+                return new Token("SUBTRAI", "-");
+            }
+            if(atual == '*'){
+                avancar();
+                return new Token("MULTIPLICA", "*");
+            }
+            if(atual == '/'){
+                avancar();
+                return new Token("DIVIDE", "/");
+            }
+            if(atual == '('){
+                avancar();
+                return new Token("LPAREN", "(");
+            }
+            if(atual == ')'){
+                avancar();
+                return new Token("FPAREN", ")");
+            }
+            if(atual == '?'){
+                avancar();
+                return new Token("EOF", "?");
+            }
+            if(Character.isDigit(atual)){
+                return new Token("INTEGER", getInteger());
+            }
+            if(Character.isAlphabetic(atual)){
+                return new Token("ID", getString());
             }
             erro();
         }
