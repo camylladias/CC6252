@@ -8,7 +8,16 @@ public class Token {
         this.valor = valor;
     }
     
+    @Override
     public String toString(){
         return "<"+ tipo +", "+valor +">";
     } 
+    
+    public String getTipo(){
+        return tipo;
+    }
+    
+    public String getValor(){
+        return valor;
+    }
 }
