@@ -12,16 +12,16 @@ public class Lexer {
     
     public Lexer(String texto){
         this.texto = texto;
-        pos = 0;
-        atual = texto.charAt(0);
+        this.pos = 0;
+        atual = texto.charAt(pos);
         afds = new ArrayList<>();
         afds.add(new Soma());
         afds.add(new Subtrai());
         afds.add(new Multiplica());
         afds.add(new Divide());
         afds.add(new LPAREN());
-        afds.add(new FPAREN());
-        afds.add(new Integer());
+        afds.add(new RPAREN());
+        afds.add(new NUMERO());
         afds.add(new ID());
     }
     
@@ -43,24 +43,6 @@ public class Lexer {
             avancar(1);
         }
     }
-    
-//    public String getInteger(){
-//        String resultado="";
-//        while(atual != '?' && Character.isDigit(atual)){
-//            resultado += atual;
-//            avancar(1);
-//        }
-//        return resultado;
-//    }
-//    
-//    public String getString(){
-//        String resultado="";
-//        while(atual != '?' && Character.isAlphabetic(atual)){
-//            resultado += atual;
-//            avancar(1);
-//        }
-//        return resultado;
-//    }
     
     public Token getNextToken(){
         while(atual != '?'){

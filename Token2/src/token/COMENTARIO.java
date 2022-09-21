@@ -1,6 +1,6 @@
 package token;
 
-public class ID implements AFD{
+public class COMENTARIO implements AFD{
     private char atual;
     
     public String getString(){
