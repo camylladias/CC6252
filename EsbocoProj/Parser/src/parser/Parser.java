@@ -19,6 +19,43 @@ public class Parser {
         System.exit(0);
     }
     
+    public void function(){
+        if (atual.getValor().equals("float")){
+            atual = getnextToken();
+            if (atual.getTipo().equals("id")){
+                atual = getnextToken();    
+                lparen();
+                if (atual.getTipo().equals("args")){
+                    atual = getnextToken();    
+                    rparen();
+                    if (atual.getValor().equals("{")){
+                        atual = getnextToken();  
+                        if (atual.getTipo().equals("comando")){
+                            atual = getnextToken();    
+                            if (atual.getValor().equals("}")){
+                                atual = getnextToken();    
+
+                            }else{
+                                erro("'}' esperado");
+                            }
+                        }else{
+                            erro("tipo Comando esperado");
+                        }
+
+                    }else{
+                        erro("'{' esperado");
+                    }
+                }else{
+                    erro("tipo args esperado");
+                }
+            }else{
+                erro("tipo Id esperado");
+            }
+        }else{
+            erro("'float' esperado");
+        }
+        
+    }
     public void lparen(){
         if(atual.getValor().equals("(")){
             atual = getnextToken();
@@ -42,27 +79,6 @@ public class Parser {
             erro("Num ou Id esperado");
         }
     }
-    public void opRelacional(){
-        if(atual.getTipo().equals("op_relacional") ){
-           atual = getnextToken();
-        }else{
-            erro("op_relacional esperado");
-        }
-    }
-    public void condicao(){
-        fator();
-        fator();
-    }
-    
-    public void ifelse(){
-        if(atual.getValor().equals("if")){
-            atual = getnextToken();
-            lparen();
-            
-            rparen();
-        }
-    }
-    
     public Parser(ArrayList<Token> tokens){
         this.tokens = tokens;
         System.out.println(tokens.size());
