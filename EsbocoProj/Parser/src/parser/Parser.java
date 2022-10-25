@@ -41,7 +41,6 @@ public class Parser {
   public void function(){
     if (atual.getValor().equals("float")){
       atual = getnextToken();
-      atual = getnextToken();
       id();
       lparen();
       arguments();
@@ -118,7 +117,7 @@ public class Parser {
     Analiza();
   }
   public void Analiza(){
-    atual=this.tokens.get(0);
+    atual = getnextToken();
     while (tokens.isEmpty()==false){
       System.out.println(tokens.size());
       if(atual.getValor().equals("float")){
