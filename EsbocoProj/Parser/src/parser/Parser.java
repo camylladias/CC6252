@@ -12,7 +12,7 @@ public class Parser {
         
         return t;
     }
-    
+    //teste
   private void erro(String regra) {
         System.out.println("Regra: " + regra);
         System.out.println("token inválido: " + atual.getValor());
@@ -40,6 +40,7 @@ public class Parser {
   }
   public void function(){
     if (atual.getValor().equals("float")){
+      atual = getnextToken();
       atual = getnextToken();
       id();
       lparen();
@@ -112,11 +113,24 @@ public class Parser {
       erro("tipo Id esperado");
     }
   }
-    public Parser(ArrayList<Token> tokens){
-        this.tokens = tokens;
-        System.out.println(tokens.size());
-        System.out.println(getnextToken().getValor());
-        System.out.println(getnextToken().getValor());
-        System.out.println(tokens.size());
+  public Parser(ArrayList<Token> tokens){
+    this.tokens = tokens;
+    Analiza();
+  }
+  public void Analiza(){
+    atual=this.tokens.get(0);
+    while (tokens.isEmpty()==false){
+      System.out.println(tokens.size());
+      if(atual.getValor().equals("float")){
+        function();
+      }
+      if(atual.getValor().equals("return")){
+        comando();
+      }
+      else{
+        expre();
+      }
     }
+    System.out.println("Programa rodado por completo.");
+  }
 }
