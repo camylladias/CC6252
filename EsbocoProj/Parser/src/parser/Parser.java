@@ -18,10 +18,36 @@ public class Parser {
         System.out.println("token inválido: " + atual.getValor());
         System.exit(0);
     }
-    
+
+  public void termo(){
+    fator();
+    if(atual.getValor().equals('*')||atual.getValor().equals('/')){
+      fator();
+    }
+  }
+  public void expre(){
+    termo();
+    if(atual.getValor().equals('+')||atual.getValor().equals('-')){
+      termo();
+    }
+  }
+  public void tipo(){
+    if (atual.getValor().equals("int")||atual.getValor().equals("double")||atual.getValor().equals("boolean")){
+      atual = getnextToken();
+    }else{
+      erro("'float' esperado");
+    }
+  }
   public void function(){
     if (atual.getValor().equals("float")){
       atual = getnextToken();
+      id();
+      lparen();
+      arguments();
+      rparen();
+      lchave();
+      comando();
+      rchave();
     }else{
       erro("'float' esperado");
     }    
@@ -55,23 +81,28 @@ public class Parser {
       }
     }
   public void comando(){
-    if (atual.getTipo().equals("comando")){
-      atual = getnextToken();    
+    if (atual.getValor().equals("return")){
+      atual = getnextToken();
+      expre();
         }else{
           erro("tipo Comando esperado");
       }
   }
   public void arguments(){
-    if (atual.getTipo().equals("args")){
+    tipo();
+    if (atual.getTipo().equals("id")){
       atual = getnextToken();
     }else{
-      erro("tipo args esperado");
-  }}
+      erro("argumento tipo Id esperado");
+    }
+  }
   public void fator(){
     if(atual.getTipo().equals("id") ||atual.getTipo().equals("id")){
       atual = getnextToken();
     }else{
-      erro("Num ou Id esperado");
+      lparen();
+      expre();
+      rparen();
     }
   }
   public void id(){
