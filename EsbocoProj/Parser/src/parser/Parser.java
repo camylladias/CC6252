@@ -5,20 +5,13 @@ import java.util.ArrayList;
 public class Parser {
   private ArrayList<Token> tokens;
   private Token atual;
-  int controle=0; 
+  Token controle=new Token("EOF","!",1); 
   public Token getnextToken(){
-    //verificar antes de chamar o next token se a lista esta vazia na prpxima iteracao, se n tiver eu posso fazer a chamada de função.
         if (tokens.isEmpty()){
-          System.out.println("Lista vazia");
-          System.exit(0);
+          return controle;
         }
         Token t = tokens.get(0);
-        System.out.println(tokens);
         tokens.remove(0);
-        /* if (controle<=t.getLength()){
-          System.out.println("next token funcao "+t);
-          controle=controle+1;
-        } */
         return t;
     }
     
@@ -29,19 +22,18 @@ public class Parser {
     }
 
   public void termo(){
-    System.out.println("Entrei na regra termo");
     fator();
     termoLinha();
   }
 
   //Tlinha
   public void termoLinha(){
-    if(atual.getValor().equals('*')){
+    if(atual.getValor().equals("*")){
       atual = getnextToken();
       fator();
       termoLinha();
     }
-    else if(atual.getValor().equals('/')){
+    else if(atual.getValor().equals("/")){
       atual = getnextToken();
       fator();
       termoLinha();
@@ -51,19 +43,18 @@ public class Parser {
   }
 
   public void expre(){
-    System.out.println("Entrei na regra expr");
     termo();
     expreLinha(); 
   }
 
   //Elinha
   public void expreLinha(){
-    if(atual.getValor().equals('+')){
+    if(atual.getValor().equals("+")){
       atual = getnextToken();
       termo();
       expreLinha();
     }
-    else if(atual.getValor().equals('-')){
+    else if(atual.getValor().equals("-")){
       atual = getnextToken();
       termo();
       expreLinha();
@@ -72,8 +63,13 @@ public class Parser {
     }
   }
 
+  public void EOF(){
+    if(atual.getTipo().equals("EOF")){
+      System.out.println("Leitura finalizada com sucesso!");
+    }
+  }
+
   public void tipo(){
-    System.out.println("Entrei na regra tipo");
     if (atual.getValor().equals("int")||atual.getValor().equals("double")||atual.getValor().equals("boolean")){
       atual = getnextToken();
     }else{
@@ -82,7 +78,6 @@ public class Parser {
   }
 
   public void function(){
-    System.out.println("Entrei na regra fun");
     if (atual.getValor().equals("float")){
       atual = getnextToken();
       id();
@@ -97,7 +92,6 @@ public class Parser {
     }    
   }
   public void lparen(){
-    System.out.println("Entrei na regra lparent");
     if(atual.getValor().equals("(")){
       atual = getnextToken();
     }else{
@@ -105,8 +99,6 @@ public class Parser {
     }
   }
   public void rparen(){
-    System.out.println("Entrei na regra rparent");
-    System.out.println("testeee  "+atual+atual.getValor()+atual.getTipo());
     if(atual.getValor().equals(")")){
       atual = getnextToken();
     }else{
@@ -114,7 +106,6 @@ public class Parser {
     }
   }
   public void lchave(){
-    System.out.println("Entrei na regra lchave");
     if (atual.getValor().equals("{")){
       atual = getnextToken();    
     }else{
@@ -122,15 +113,14 @@ public class Parser {
     }
   } 
   public void rchave(){
-    System.out.println("Entrei na regra rchave");
       if (atual.getValor().equals("}")){
         atual = getnextToken();    
       }else{
         erro("'}' esperado");
       }
+      EOF();
     }
   public void comando(){
-    System.out.println("Entrei na regra comando");
     if (atual.getValor().equals("return")){
       atual = getnextToken();
       expre();
@@ -139,7 +129,6 @@ public class Parser {
       }
   }
   public void arguments(){
-    System.out.println("Entrei na regra args");
     tipo();
     if (atual.getTipo().equals("id")){
       atual = getnextToken();
@@ -148,7 +137,6 @@ public class Parser {
     }
   }
   public void fator(){
-    System.out.println("valor do fator "+atual);
     if(atual.getTipo().equals("id") ||atual.getTipo().equals("num")){
       atual = getnextToken();
     }else{
@@ -158,7 +146,6 @@ public class Parser {
     }
   }
   public void id(){
-    System.out.println("Entrei na regra id");
     if (atual.getTipo().equals("id")){
       atual = getnextToken();
     }else{
@@ -171,16 +158,7 @@ public class Parser {
   }
   public void Analiza(){
     atual = getnextToken();
-    // while (tokens.isEmpty()==false){
-    System.out.println("Valor do atual "+atual);
      function();
-      /* if(atual.getValor().equals("return")){
-        comando();
-      }
-      else{
-        expre();
-      } */
-    // }
-    System.out.println("Programa rodado por completo.");
+
   }
 }
