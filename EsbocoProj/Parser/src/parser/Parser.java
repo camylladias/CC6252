@@ -31,17 +31,53 @@ public class Parser {
   public void termo(){
     System.out.println("Entrei na regra termo");
     fator();
+    //termoLinha();
     if(atual.getValor().equals('*')||atual.getValor().equals('/')){
       fator();
     }
   }
+
+  //Tlinha
+  public void termoLinha(){
+    if(atual.getValor().equals('*')){
+      atual = getnextToken();
+      fator();
+      termoLinha();
+    }
+    else if(atual.getValor().equals('/'){
+      atual = getnextToken();
+      fator();
+      termoLinha();
+    }else{
+      return;
+    }
+  }
+
   public void expre(){
     System.out.println("Entrei na regra expr");
     termo();
+    //EL(); -> adicionar barra AltrGr + Q 
     if(atual.getValor().equals('+')||atual.getValor().equals('-')){
       termo();
     }
   }
+
+  //Elinha
+  public void expreLinha(){
+    if(atual.getValor().equals('+')){
+      atual = getnextToken();
+      termo();
+      expreLinha();
+    }
+    else if(atual.getValor().equals('-'){
+      atual = getnextToken();
+      termo();
+      expreLinha();
+    }else{
+      return;
+    }
+  }
+
   public void tipo(){
     System.out.println("Entrei na regra tipo");
     if (atual.getValor().equals("int")||atual.getValor().equals("double")||atual.getValor().equals("boolean")){
