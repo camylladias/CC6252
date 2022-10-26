@@ -31,10 +31,7 @@ public class Parser {
   public void termo(){
     System.out.println("Entrei na regra termo");
     fator();
-    //termoLinha();
-    if(atual.getValor().equals('*')||atual.getValor().equals('/')){
-      fator();
-    }
+    termoLinha();
   }
 
   //Tlinha
@@ -44,7 +41,7 @@ public class Parser {
       fator();
       termoLinha();
     }
-    else if(atual.getValor().equals('/'){
+    else if(atual.getValor().equals('/')){
       atual = getnextToken();
       fator();
       termoLinha();
@@ -56,10 +53,7 @@ public class Parser {
   public void expre(){
     System.out.println("Entrei na regra expr");
     termo();
-    //EL(); -> adicionar barra AltrGr + Q 
-    if(atual.getValor().equals('+')||atual.getValor().equals('-')){
-      termo();
-    }
+    expreLinha(); 
   }
 
   //Elinha
@@ -69,7 +63,7 @@ public class Parser {
       termo();
       expreLinha();
     }
-    else if(atual.getValor().equals('-'){
+    else if(atual.getValor().equals('-')){
       atual = getnextToken();
       termo();
       expreLinha();
