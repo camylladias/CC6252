@@ -1,0 +1,65 @@
+Gramatica:
+
+S -> baY | bcS' | S'T
+S' -> abS' | e
+T -> aY | T'
+T' -> aT' | dT' | e
+Y -> dY | bcS | baT
+----------------------------
+
+Pseudo-codigo:
+
+Simbolo inicial = S
+----------------------------
+
+
+S(){
+    if token == 'ba'
+        token = nextToken()
+        Y()
+    else if token == 'bc'
+        token = nextToken()
+        Sl()
+    else
+        Sl()
+        T()
+}
+
+Sl(){
+    if token == 'ab'
+        token = nextToken()
+        Sl()
+    else
+        return
+}
+
+T(){
+    if() Tl() != erro()
+        return
+    else if token == 'a'
+        token = nextToken()
+        Y()
+        return
+}
+
+Tl(){
+    if token == 'a'
+        token == nextToken()
+        Tl()
+else if token == 'd'
+}
+
+Y(){
+    if token == 'd'
+        token = nextToken()
+        Y()
+    else if token == 'bc'
+        token = nextToken()
+        S()
+    else if tokien == 'ba'
+        token = nextToken()
+        token = nextToken()
+        T()
+    else
+        erro()
+}
